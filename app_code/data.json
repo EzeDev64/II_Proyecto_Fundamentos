@@ -1,0 +1,32 @@
+{
+  "A": [
+    "Real Madrid",
+    "Ronaldo",
+    "RM_ronaldo",
+    "Navas",
+    "RM_navas",
+    2,
+    3,
+    0
+  ],
+  "B": [
+    "Chelsea",
+    "Garnacho",
+    "CH_garnacho",
+    "Sanchez",
+    "CH_sanchez",
+    4,
+    1,
+    4
+  ],
+  "C": [
+    "Chelsea",
+    "Palmer",
+    "CH_palmer",
+    "Jorgensen",
+    "CH_jorgensen",
+    0,
+    0,
+    0
+  ]
+}
