@@ -3,9 +3,9 @@ import network, socket, rp2, sys
 import socket,time,random
 
 #Configuration:
-ssid = "Coffe"#'AndroidAP2361'
-password = "X3bazy20"#'javier28272'
-SERVER_IP = "192.168.247.140"
+ssid = 'AndroidAP2361'
+password = 'javier28272'
+SERVER_IP = "192.168.77.140"
 PORT = 8081
 """
 Aditional data - for connecting other ip's
@@ -162,6 +162,7 @@ def EjecutarSecuencia():
     return portero_lst
     
 #Main:
+time.sleep(30)
 connect()
 send_data()
 #connect_server()
