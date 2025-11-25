@@ -5,8 +5,8 @@ import socket,time,random
 #Configuration:
 ssid = 'AndroidAP2361'
 password = 'javier28272'
-SERVER_IP = "192.168.77.140"
-PORT = 8081
+SERVER_IP = "192.168.77.77"
+PORT = 8080
 """
 Aditional data - for connecting other ip's
 WR: Coffe PS: X3bazy20 IPL: "192.168.100.88" IPE: "192.168.100.50"
@@ -20,13 +20,17 @@ button = Pin(5,Pin.IN,Pin.PULL_UP)
 #Leds de los equipos
 ledVisitante = Pin(27,Pin.OUT)
 ledLocal = Pin(22,Pin.OUT)
+#Para el circuito decremento 3 circular
+A = Pin(15,Pin.OUT)
+B = Pin(14,Pin.OUT)
+C = Pin(13,Pin.OUT)
 #Registro corrimiento
 AB = Pin(18,Pin.OUT)
 CLK = Pin(19,Pin.OUT)
 secuencia = [0,1,1,1,1,1]
 nivel = 1 #para el portero
 #Para las paletas:
-pines = [7, 8, 9, 10, 11, 12]
+pines = [12,7,11,8,10,9]
 paletas = [Pin(pin, Pin.IN, Pin.PULL_DOWN) for pin in pines]
 user_turn = True
 
@@ -120,6 +124,7 @@ def send_data():
             ledVisitante.off()
             ledLocal.on()
             user_turn = True
+        #Agregar respuesta encender leds del circuito decremento
         if response == "NOMORE":
             user_turn = False
                 
@@ -162,7 +167,6 @@ def EjecutarSecuencia():
     return portero_lst
     
 #Main:
-time.sleep(30)
 connect()
 send_data()
 #connect_server()
