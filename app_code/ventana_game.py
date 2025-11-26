@@ -217,6 +217,19 @@ class game_subwindow():
                 self.goal_snd.play()
                 #Modify the total points
                 self.T1_points[1] += 1
+
+                #The circuit binary logic
+                val = self.T1_points[1]
+                if val< 4:
+                    val += 8
+                    
+                #Convertir a binario
+                val = bin(val)
+                val= val[2:]
+                #Reducirlo a 3 terminos
+                val = val[len(val)-3:]
+                print(val)
+                p2p_connection.m_client = "CIRCUIT,"+str(val)
             else:
                 self.T1_points[0] += 1
                 self.fail_snd.play()   
@@ -231,7 +244,7 @@ class game_subwindow():
             self.panel_player.config(bg="black")
             self.panel_goalkeeper.config(bg="black")
             #self.lbl_time.config(text="0"+str(self.time)+":00")
-            #Re-activate the timer
+            #Re-activate the timer            
             self.cronometro = self.window.after(1000,self.arbitro)
 
     #Determines if the shoot was goal or not

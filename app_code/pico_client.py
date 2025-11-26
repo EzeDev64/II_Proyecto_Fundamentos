@@ -3,9 +3,9 @@ import network, socket, rp2, sys
 import socket,time,random
 
 #Configuration:
-ssid = "Coffe"#'AndroidAP2361'
-password = "X3bazy20"#'javier28272'
-SERVER_IP = "192.168.247.140"
+ssid = 'AndroidAP2361'
+password = 'javier28272'
+SERVER_IP = "192.168.77.140"
 PORT = 8081
 """
 Aditional data - for connecting other ip's
@@ -20,13 +20,18 @@ button = Pin(5,Pin.IN,Pin.PULL_UP)
 #Leds de los equipos
 ledVisitante = Pin(27,Pin.OUT)
 ledLocal = Pin(22,Pin.OUT)
+#Para el circuito decremento 3 circular
+led_aleat = Pin(16,Pin.OUT)
+A = Pin(17,Pin.OUT)
+B = Pin(18,Pin.OUT)
+C = Pin(19,Pin.OUT)
 #Registro corrimiento
-AB = Pin(18,Pin.OUT)
-CLK = Pin(19,Pin.OUT)
+#AB = Pin(18,Pin.OUT)
+#CLK = Pin(19,Pin.OUT)
 secuencia = [0,1,1,1,1,1]
 nivel = 1 #para el portero
 #Para las paletas:
-pines = [7, 8, 9, 10, 11, 12]
+pines = [12,7,11,8,10,9]
 paletas = [Pin(pin, Pin.IN, Pin.PULL_DOWN) for pin in pines]
 user_turn = True
 
@@ -75,24 +80,31 @@ def send_data():
         
         if w_send == 1 and user_turn:
             secuencia = EjecutarSecuencia()
+            print(secuencia)
             for i, paleta in enumerate(paletas):
                 if paleta.value() == 1:  # Circuito cerrado, tocó el cable
-                    for i in range(6):
+                    """
+                    for c in range(6):
                         bit = secuencia[5-i]
                         AB(bit)
                         CLK(1)
                         CLK(0)
-                        
-                    #print(f"Paleta {i+1} tocó el cable")
-                    data = f"yes{i+1}"
-                    print(pines[5],secuencia[5])
+                    """    
+
+                    #print(pines[i],secuencia[i])
                     if secuencia[i] == 1:
+                        #print(secuencia, bit)
                         data = "tapado"
                         break
-                        
+                    else:
+                        #print(f"Paleta {i+1} tocó el cable")
+                        data = f"yes{i+1}"
+                        r_value = random.randint(0,1)                        
+                        break
                 else:
                     #print(f"Paleta {i+1} sin contacto")
                     data = "no"
+                    
         if user_turn == False:
             data="nada"
                     
@@ -120,6 +132,15 @@ def send_data():
             ledVisitante.off()
             ledLocal.on()
             user_turn = True
+        if "CIRCUIT" in response:
+            led_aleat.value(r_value)
+            print("Val_al", r_value)
+            values = response.split(",")[1]
+            A.value(int(values[0]))
+            B.value(int(values[1]))
+            C.value(int(values[2]))
+            user_turn = False
+            
         if response == "NOMORE":
             user_turn = False
                 

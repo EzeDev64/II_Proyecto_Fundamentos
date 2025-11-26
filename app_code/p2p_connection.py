@@ -3,7 +3,7 @@ import socket, threading,time, sys
 #Creating the Host and connection port
 HOST = "0.0.0.0"  #Listening and writing
 PORT = 8081       #The port where we received client data
-SERVER_IP = '192.168.100.88'
+SERVER_IP = "192.168.77.140" #'192.168.100.88'
 PORT_CLIENT = 8080
 
 #"Potenciometro" value
@@ -52,6 +52,7 @@ def handle_client(client):
             message = data.decode()
             
             if "yes" in message:
+                print("yes")
                 value_changed()
             elif message == "no":
                 print("no")
